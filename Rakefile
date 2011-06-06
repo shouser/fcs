@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "fcs"
   gem.homepage = "http://github.com/TiltingAt/fcs"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Final Cut Server offers a command line interface to much of it's functionality.   This gem offers a more ruby'ish interface to that functionality.}
+  gem.description = %Q{}
   gem.email = "steve@tilting.at"
   gem.authors = ["Steve Houser"]
   # dependencies defined in Gemfile
@@ -51,3 +51,8 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
+
+# PRIVATE GEM: Remove tasks for releasing this gem to Gemcutter
+tasks = Rake.application.instance_variable_get('@tasks')
+tasks.delete('release')
+tasks.delete('gemcutter:release')
