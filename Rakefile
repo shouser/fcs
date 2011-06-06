@@ -20,7 +20,7 @@ Jeweler::Tasks.new do |gem|
   gem.summary = %Q{Final Cut Server offers a command line interface to much of it's functionality.   This gem offers a more ruby'ish interface to that functionality.}
   gem.description = %Q{}
   gem.email = "steve@tilting.at"
-  gem.authors = ["Steve Houser"]
+  gem.authors = ["Tilting @, LLC"]
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new
