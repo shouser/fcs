@@ -5,10 +5,10 @@
 
 Gem::Specification.new do |s|
   s.name = %q{fcs}
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Steve Houser"]
+  s.authors = ["Tilting @, LLC"]
   s.date = %q{2011-06-06}
   s.description = %q{}
   s.email = %q{steve@tilting.at}
@@ -19,10 +19,12 @@ Gem::Specification.new do |s|
   s.files = [
     ".document",
     "Gemfile",
+    "Gemfile.lock",
     "LICENSE.txt",
     "README.rdoc",
     "Rakefile",
     "VERSION",
+    "fcs.gemspec",
     "lib/fcs.rb",
     "test/helper.rb",
     "test/test_fcs.rb"
