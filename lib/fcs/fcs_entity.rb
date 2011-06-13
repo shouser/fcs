@@ -411,15 +411,23 @@ module FinalCutServer
       return nil if str.nil? or str.empty?
       
       result = []
-      addr_re = /^(#{address}\/\d+)\s/
-      str.each_line do |line|
-        md = line.match(addr_re)
-        next if md.nil?
-        next unless md.length > 1
-        
-        result << ObjectFactory.instance.object_for_address(md[1])
+      if options[:xml]
+        doc = REXML::Document.new str
+        doc.elements["session"].each_element do |element|
+          address = element.elements["value[@id='ADDRESS']/string"].text.to_s
+          result << ObjectFactory.instance.object_for_address(address)
+        end
+      else
+        addr_re = /^(#{address}\/\d+)\s/
+        str.each_line do |line|
+          md = line.match(addr_re)
+          next if md.nil?
+          next unless md.length > 1
+
+          result << ObjectFactory.instance.object_for_address(md[1])
+        end
       end
-      
+
       # return an array with any nil elements removed
       result.compact
     end

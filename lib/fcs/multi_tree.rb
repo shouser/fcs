@@ -299,8 +299,8 @@ module FinalCutServer
     protected
     
     def lazy_source
-      children_xml = REXML::Document.new(@client.list_parent_links({:xml => true}, [address]))
-      parents_xml = REXML::Document.new(@client.list_child_links({:xml => true}, [address]))
+      children_xml = REXML::Document.new(@client.list_parent_links({:xml => true}, address))
+      parents_xml = REXML::Document.new(@client.list_child_links({:xml => true}, address))
       
       # if either of those calls failed, return an empty result
       return OpenStruct.new if children_xml.nil? or parents_xml.nil?

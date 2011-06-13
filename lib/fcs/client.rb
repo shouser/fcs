@@ -32,16 +32,17 @@ module FinalCutServer
     # Default values
     self.fcs_binary  = "/Library/Application\\ Support/Final\\ Cut\\ Server/Final\\ Cut\\ Server.bundle/Contents/MacOS/fcsvr_client"
     self.fcs_timeout = 30
-    self.ssh_host = "localhost"
-    self.ssh_username = "admin"
+    self.ssh_host = "Cook.local"
+    self.ssh_username = "shouser"
     self.ssh_private_key_file = "~/.ssh/id_rsa"
     
     # find out how many bytes were read during the last command.
-    attr_accessor :bytes_read, :last_call
+    attr_accessor :bytes_read, :last_call, :last_search_xml
     
     def initialize
       self.bytes_read = 0
       self.last_call = ""
+      self.last_search_xml = ""
     end
     
     # Overridden to turn +client.something(options, arg1, arg2)+ into a call to
@@ -75,10 +76,13 @@ module FinalCutServer
       # if sudo isn't defined then it's assumed to be false
       sudo = "" if sudo.nil?
       
+      args = [args] if !args.empty? and args.kind_of? String
+      
       # If the options contain a :search_hash option, remove it and record it.
       search_hash = options.delete(:search_hash)
       #Convert the search hash to a xml search if it's found
       search_xml = create_search_xml(search_hash) unless search_hash.nil?
+      
       if search_xml.nil?
         xmlcrit = ""
       else
@@ -93,6 +97,7 @@ module FinalCutServer
       call = "#{sudo.to_s} #{Client.fcs_binary} #{cmd.to_s} #{xmlcrit} #{(opt_args + ext_args).join(' ')}"
       puts call if FinalCutServer.debug
       self.last_call = call
+      self.last_search_xml = search_xml unless search_xml.nil?
       
       # run the call via the command-line shell, printing the response in debug mode
       if search_xml.nil?
@@ -206,13 +211,10 @@ module FinalCutServer
             end
             
             channel.on_close do |ch|
-              if ret.empty?
-                @bytes_read += ret.size
-                ret = error_data_read
-                return ret
-              else
-                return ret
-              end
+              return ret unless ret.empty?
+              @bytes_read += ret.size
+              ret = error_data_read
+              return ret
             end
           end
         end

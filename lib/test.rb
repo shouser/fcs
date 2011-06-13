@@ -23,7 +23,8 @@ FinalCutServer.debug = false
 
 # puts FinalCutServer::Device.search("", {:xml => true})
 
-# search_json = '{"search":{"type":"interesect","criteria":[{"name":"ASSET_NUMBER","op":"eq","data_type":"bigint","value":1,"offset":0},{"name":"FILE_CREATE_DATE","op":"gt","data_type":"atom","value":"now","offset":-6000000}]}}'
+search_json = '{"search":{"type":"interesect","criteria":[{"name":"ASSET_NUMBER","op":"gt","data_type":"bigint","value":1,"offset":0},{"name":"FILE_CREATE_DATE","op":"gt","data_type":"atom","value":"now","offset":-6000000}]}}'
+
 # 
 
 project = FinalCutServer::Project.new(@client, ['/project/1'])
@@ -36,7 +37,14 @@ asset.load_metadata
 x = asset.metadata.to_json
 
 # 
-# result = FinalCutServer::Asset.search("", {:xml => true, :search_hash => JSON(search_json)})
+result = FinalCutServer::Asset.search(nil, {:xml => true, :search_hash => JSON(search_json)})
+result_metadata_array = []
+result.each do |element|
+  element.load_metadata
+  result_metadata_array << element.metadata
+end
+
+puts result_metadata_array
 # # puts result.length
 # 
 # asset_links = FinalCutServer::MediaFile.new(client, ['/asset/1'])
@@ -104,7 +112,7 @@ factory = FinalCutServer::ObjectFactory.instance
 # asset_rep_xml = @client.list_parent_links({:xml => true}, ['/asset/1'])
 # puts get_location_for_asset_rep(asset_rep_xml).to_json
 
-puts asset.get_location_for_asset_rep
+# puts asset.get_location_for_asset_rep
 # def hash_to_md_xml(md)
 #   doc = REXML::Document.new "<session><values/></session>"
 #   
@@ -129,6 +137,6 @@ puts asset.get_location_for_asset_rep
 #   return doc.to_s
 # end
 
-asset_md_hash = JSON(x)
-puts FinalCutServer::FCSEntity.hash_to_md_xml(asset_md_hash)
+#asset_md_hash = JSON(x)
+#puts FinalCutServer::FCSEntity.hash_to_md_xml(asset_md_hash)
 
