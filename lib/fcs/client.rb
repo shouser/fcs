@@ -104,7 +104,7 @@ module FinalCutServer
       call = "#{sudo.to_s} #{Client.fcs_binary} #{cmd.to_s} #{xmlcrit} #{(opt_args + ext_args).join(' ')}"
       puts call if FinalCutServer.debug
       self.last_call = call
-      self.last_search_xml = search_xml
+      self.last_search_xml = search_xml.to_s
       
       # run the call via the command-line shell, printing the response in debug mode
       if search_xml.nil?
