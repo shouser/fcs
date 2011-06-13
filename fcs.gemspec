@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{fcs}
-  s.version = "0.1.3"
+  s.version = "0.1.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tilting @, LLC"]
-  s.date = %q{2011-06-06}
+  s.date = %q{2011-06-12}
   s.description = %q{}
   s.email = %q{steve@tilting.at}
   s.extra_rdoc_files = [
@@ -25,7 +25,19 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "fcs.gemspec",
+    "lib/ext/string.rb",
     "lib/fcs.rb",
+    "lib/fcs/asset.rb",
+    "lib/fcs/client.rb",
+    "lib/fcs/device.rb",
+    "lib/fcs/element.rb",
+    "lib/fcs/factory.rb",
+    "lib/fcs/fcs_entity.rb",
+    "lib/fcs/file.rb",
+    "lib/fcs/lazy_reader.rb",
+    "lib/fcs/multi_tree.rb",
+    "lib/fcs/project.rb",
+    "lib/test.rb",
     "test/helper.rb",
     "test/test_fcs.rb"
   ]
