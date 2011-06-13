@@ -37,12 +37,13 @@ module FinalCutServer
     self.ssh_private_key_file = "~/.ssh/id_rsa"
     
     # find out how many bytes were read during the last command.
-    attr_accessor :bytes_read, :last_call, :last_search_xml
+    attr_accessor :bytes_read, :last_call, :last_search_xml, :last_raw_response
     
     def initialize
       self.bytes_read = 0
       self.last_call = ""
       self.last_search_xml = ""
+      self.last_raw_response = ""
     end
     
     # Overridden to turn +client.something(options, arg1, arg2)+ into a call to
@@ -74,7 +75,13 @@ module FinalCutServer
       # If the options contain a :sudo option, remove it record it's value for use in the call.
       sudo = options.delete(:sudo)
       # if sudo isn't defined then it's assumed to be false
-      sudo = "" if sudo.nil?
+      if sudo.nil?
+        sudo = ""
+      else
+        sudo = 'sudo'
+      end
+      
+      xmlcrit = options.delete(:xmlcrit)
       
       args = [args] if !args.empty? and args.kind_of? String
       
@@ -83,7 +90,7 @@ module FinalCutServer
       #Convert the search hash to a xml search if it's found
       search_xml = create_search_xml(search_hash) unless search_hash.nil?
       
-      if search_xml.nil?
+      if xmlcrit.nil?
         xmlcrit = ""
       else
         xmlcrit = "--xmlcrit" 
@@ -97,7 +104,7 @@ module FinalCutServer
       call = "#{sudo.to_s} #{Client.fcs_binary} #{cmd.to_s} #{xmlcrit} #{(opt_args + ext_args).join(' ')}"
       puts call if FinalCutServer.debug
       self.last_call = call
-      self.last_search_xml = search_xml unless search_xml.nil?
+      self.last_search_xml = search_xml
       
       # run the call via the command-line shell, printing the response in debug mode
       if search_xml.nil?
@@ -107,6 +114,8 @@ module FinalCutServer
       end
       
       puts response if FinalCutServer.debug
+      
+      self.last_raw_response = response
       
       # return the response
       response
