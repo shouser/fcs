@@ -37,7 +37,7 @@ asset.load_metadata
 x = asset.metadata.to_json
 
 # 
-result = FinalCutServer::Asset.search(nil, {:xml => true, :search_hash => JSON(search_json)})
+result = FinalCutServer::FCSEntity.search_for(['/asset'], nil, {:xml => true, :search_hash => JSON(search_json)})
 result_metadata_array = []
 result.each do |element|
   element.load_metadata

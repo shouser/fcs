@@ -385,6 +385,8 @@ module FinalCutServer
       @metadata[key + "_node"] = {"value" => value, "type" => nodetype} unless nodetype.nil?
     end
     
+    public
+    
     #
     # Used by superclasses to implement searches to return FCSEntity classes as results.
     #
