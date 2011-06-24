@@ -52,7 +52,7 @@ module FinalCutServer
     end
     
     def get_location_for_asset_rep
-      xml = self.client.list_parent_links({:xml => true}, ['/asset/' + self.asset_number.to_s])
+      xml = @client.list_parent_links({:xml => true}, ['/asset/' + self.asset_number.to_s])
       
       doc = REXML::Document.new xml
 

@@ -77,6 +77,8 @@ module FinalCutServer
           elsif item['type'] == "string"
             data_node.text = item['value']
             data_node.attributes['xml:space'] = "preserve"
+          else
+            data_node.text = item['value'].to_s
           end
           value_node.add_element data_node
           doc.elements["session/values"].add_element value_node

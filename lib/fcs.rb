@@ -18,6 +18,9 @@ require 'net/ssh'
 require 'open4'
 require 'socket'
 require 'json'
+require 'uri'
+require 'ERB'
+require 'tree'
 
 #project internals
 require 'ext/string'
