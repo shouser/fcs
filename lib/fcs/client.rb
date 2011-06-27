@@ -108,8 +108,6 @@ module FinalCutServer
       # build the call and print it if debugging
       call = "#{sudo.to_s} #{Client.fcs_binary} #{cmd.to_s} #{xmlcrit} #{(opt_args + ext_args).join(' ')}"
       puts call if FinalCutServer.debug
-      self.last_call = call
-      self.last_search_xml = search_xml.to_s
       
       # run the call via the command-line shell, printing the response in debug mode
       if search_xml.nil? and setmd_xml.nil?
@@ -121,8 +119,6 @@ module FinalCutServer
       end
       
       puts response if FinalCutServer.debug
-      
-      self.last_raw_response = response
       
       # return the response
       response
@@ -294,6 +290,8 @@ module FinalCutServer
     # Returns String.
     #
     def ssh_sh(command, search_xml = nil)
+      self.last_call = command
+      self.last_search_xml = search_xml
       Net::SSH.start(self.class.ssh_host, self.class.ssh_username, {:verbose => Logger::FATAL, :keys => Array[self.class.ssh_private_key_file], :encryption => "3des-cbc", :hmac => "hmac-md5", :auth_methods => Array["publickey"]}) do |ssh|
         ssh.open_channel do |channel|
           channel.exec(command) do |ch, success|
@@ -318,6 +316,10 @@ module FinalCutServer
             end
             
             channel.on_close do |ch|
+              self.last_raw_response = ret
+              self.last_call = "" if self.last_call.nil?
+              self.last_search_xml = "" if self.last_search_xml.nil?
+              self.last_raw_response = "" if self.last_raw_response.nil?              
               return ret
             end
           end
