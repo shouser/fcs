@@ -94,7 +94,7 @@ module FinalCutServer
       xmlmd_hash = options.delete(:xmlmd_hash)
       # Convert the xmlmd hash into an xml for use in setting md on an object
       setmd_xml = FinalCutServer::FCSEntity.hash_to_md_xml(xmlmd_hash) unless xmlmd_hash.nil?
-      puts setmd_xml
+      puts setmd_xml if FinalCutServer.debug
       if xmlcrit.nil?
         xmlcrit = ""
       else
@@ -297,7 +297,7 @@ module FinalCutServer
           channel.exec(command) do |ch, success|
             puts "Failure to execute command" unless success
             
-            puts search_xml
+            puts search_xml if FinalCutServer.debug
             
             ret = ""
             

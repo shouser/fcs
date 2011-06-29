@@ -68,21 +68,19 @@ module FinalCutServer
       doc << REXML::XMLDecl.new
 
       md.each do |name, item|
-        if name =~ /_node$/
-          value_node = REXML::Element.new "value"
-          value_node.attributes['id'] = name.gsub(/_node$/, '')
-          data_node = REXML::Element.new item["type"]
-          if item['type'] == "timestamp"
-            data_node.text = item['value'].to_s.to_fcs_style_time
-          elsif item['type'] == "string"
-            data_node.text = item['value']
-            data_node.attributes['xml:space'] = "preserve"
-          else
-            data_node.text = item['value'].to_s
-          end
-          value_node.add_element data_node
-          doc.elements["session/values"].add_element value_node
+        value_node = REXML::Element.new "value"
+        value_node.attributes['id'] = name
+        data_node = REXML::Element.new item["type"]
+        if item['type'] == "timestamp"
+          data_node.text = item['value'].to_s.to_fcs_style_time
+        elsif item['type'] == "string"
+          data_node.text = item['value']
+          data_node.attributes['xml:space'] = "preserve"
+        else
+          data_node.text = item['value'].to_s
         end
+        value_node.add_element data_node
+        doc.elements["session/values"].add_element value_node
       end
 
       return doc.to_s
@@ -388,6 +386,18 @@ module FinalCutServer
     end
     
     public
+    
+    def get_clean_metadata
+      clean_hash = Hash.new
+      load_metadata
+      puts metadata
+      metadata.each do |key, value|
+        if key =~ /_node\s*$/ then
+          clean_hash[key.gsub(/_node\s*$/, "")] = value
+        end
+      end
+      return clean_hash
+    end
     
     #
     # Used by superclasses to implement searches to return FCSEntity classes as results.
