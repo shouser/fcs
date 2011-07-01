@@ -72,6 +72,7 @@ module FinalCutServer
     #   client.list_parent_links({:xml => true}, '/asset/352')
     #
     def run(cmd, options, args = [])
+      puts cmd
       # If the options contain a :sudo option, remove it record it's value for use in the call.
       sudo = options.delete(:sudo)
       # if sudo isn't defined then it's assumed to be false
@@ -95,6 +96,14 @@ module FinalCutServer
       # Convert the xmlmd hash into an xml for use in setting md on an object
       setmd_xml = FinalCutServer::FCSEntity.hash_to_md_xml(xmlmd_hash) unless xmlmd_hash.nil?
       puts setmd_xml if FinalCutServer.debug
+
+      # If the options contain a :create_asset_xml option remove it and record it.
+      create_asset_json = options.delete(:create_asset_json)
+      # Convert the create_asset_json into a create asset xml that fits FCSvr format.
+      create_asset_xml = FinalCutServer::Asset.convert_asset_with_reps_json_to_xml create_asset_json unless create_asset_json.nil?
+
+      puts create_asset_xml if FinalCutServer.debug
+      
       if xmlcrit.nil?
         xmlcrit = ""
       else
@@ -107,14 +116,16 @@ module FinalCutServer
       
       # build the call and print it if debugging
       call = "#{sudo.to_s} #{Client.fcs_binary} #{cmd.to_s} #{xmlcrit} #{(opt_args + ext_args).join(' ')}"
-      puts call if FinalCutServer.debug
+      puts call if FinalCutServer.debug or true
       
       # run the call via the command-line shell, printing the response in debug mode
-      if search_xml.nil? and setmd_xml.nil?
+      if search_xml.nil? and setmd_xml.nil? and create_asset_xml.nil?
         response = ssh_sh(call)
-      elsif setmd_xml.nil?
+      elsif search_xml.nil? and setmd_xml.nil?
+        response = ssh_sh(call, create_asset_xml)
+      elsif setmd_xml.nil? and create_asset_xml.nil?
         response = ssh_sh(call, search_xml)
-      elsif search_xml.nil?
+      elsif search_xml.nil? and create_asset_xml.nil?
         response = ssh_sh(call, setmd_xml)
       end
       
@@ -125,6 +136,16 @@ module FinalCutServer
     end
 
     public
+
+    def create_asset_with_reps(asset_json)
+      options = Hash.new
+      options[:create_asset_json] = asset_json
+      options[:sudo] = true
+      options[:xml] = true
+
+      created_asset_addr = create options, '/asset'
+      return created_asset_addr
+    end
 
     def create_asset(source_file_path, source_file_name, device_addr, description, keywords, project_addr, asset_type = "pa_asset_media", remove_original_file = true, trigger_analyze = true)
       return false if source_file_name.nil? || source_file_path.nil? || device_addr.nil?
@@ -296,8 +317,8 @@ module FinalCutServer
         ssh.open_channel do |channel|
           channel.exec(command) do |ch, success|
             puts "Failure to execute command" unless success
-            
-            puts search_xml if FinalCutServer.debug
+            # puts command
+            # puts search_xml
             
             ret = ""
             
