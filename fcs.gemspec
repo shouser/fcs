@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tilting @, LLC"]
-  s.date = %q{2011-07-01}
+  s.date = %q{2011-07-20}
   s.description = %q{}
   s.email = %q{steve@tilting.at}
   s.extra_rdoc_files = [
@@ -25,6 +25,11 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "fcs.gemspec",
+    "features/create_asset.feature",
+    "features/fcs.feature",
+    "features/step_definitions/fcs_steps.rb",
+    "features/support/env.rb",
+    "features/support/test.mov",
     "lib/ext/string.rb",
     "lib/fcs.rb",
     "lib/fcs/asset.rb",
@@ -37,8 +42,11 @@ Gem::Specification.new do |s|
     "lib/fcs/lazy_reader.rb",
     "lib/fcs/multi_tree.rb",
     "lib/fcs/project.rb",
-    "test/helper.rb",
-    "test/test_fcs.rb"
+    "lib/ssh/id_dsa",
+    "lib/ssh/id_dsa.pub",
+    "spec/fcs/client_spec.rb",
+    "spec/fcs_spec.rb",
+    "spec/spec_helper.rb"
   ]
   s.homepage = %q{http://github.com/TiltingAt/fcs}
   s.licenses = ["MIT"]
@@ -50,17 +58,47 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
+      s.add_runtime_dependency(%q<net-ssh>, [">= 0"])
+      s.add_runtime_dependency(%q<net-scp>, [">= 0"])
+      s.add_runtime_dependency(%q<erubis>, [">= 0"])
+      s.add_runtime_dependency(%q<json>, [">= 0"])
+      s.add_runtime_dependency(%q<json_pure>, [">= 0"])
+      s.add_runtime_dependency(%q<rubytree>, [">= 0"])
+      s.add_runtime_dependency(%q<POpen4>, [">= 0"])
+      s.add_runtime_dependency(%q<rdoc>, [">= 0"])
+      s.add_development_dependency(%q<rspec>, ["~> 2.3.0"])
+      s.add_development_dependency(%q<cucumber>, [">= 0"])
       s.add_development_dependency(%q<shoulda>, [">= 0"])
       s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.6.2"])
       s.add_development_dependency(%q<rcov>, [">= 0"])
     else
+      s.add_dependency(%q<net-ssh>, [">= 0"])
+      s.add_dependency(%q<net-scp>, [">= 0"])
+      s.add_dependency(%q<erubis>, [">= 0"])
+      s.add_dependency(%q<json>, [">= 0"])
+      s.add_dependency(%q<json_pure>, [">= 0"])
+      s.add_dependency(%q<rubytree>, [">= 0"])
+      s.add_dependency(%q<POpen4>, [">= 0"])
+      s.add_dependency(%q<rdoc>, [">= 0"])
+      s.add_dependency(%q<rspec>, ["~> 2.3.0"])
+      s.add_dependency(%q<cucumber>, [">= 0"])
       s.add_dependency(%q<shoulda>, [">= 0"])
       s.add_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_dependency(%q<jeweler>, ["~> 1.6.2"])
       s.add_dependency(%q<rcov>, [">= 0"])
     end
   else
+    s.add_dependency(%q<net-ssh>, [">= 0"])
+    s.add_dependency(%q<net-scp>, [">= 0"])
+    s.add_dependency(%q<erubis>, [">= 0"])
+    s.add_dependency(%q<json>, [">= 0"])
+    s.add_dependency(%q<json_pure>, [">= 0"])
+    s.add_dependency(%q<rubytree>, [">= 0"])
+    s.add_dependency(%q<POpen4>, [">= 0"])
+    s.add_dependency(%q<rdoc>, [">= 0"])
+    s.add_dependency(%q<rspec>, ["~> 2.3.0"])
+    s.add_dependency(%q<cucumber>, [">= 0"])
     s.add_dependency(%q<shoulda>, [">= 0"])
     s.add_dependency(%q<bundler>, ["~> 1.0.0"])
     s.add_dependency(%q<jeweler>, ["~> 1.6.2"])
