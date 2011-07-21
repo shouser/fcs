@@ -11,14 +11,15 @@ require 'rexml/document'
 #stdlib
 require 'timeout'
 require 'singleton'
+require 'uri'
+require 'socket'
 
 #third party
 require 'rubygems'
 require 'net/ssh'
+require 'net/scp'
 require 'open4'
-require 'socket'
 require 'json'
-require 'uri'
 require 'ERB'
 require 'tree'
 
@@ -38,10 +39,8 @@ require 'fcs/project'
 
 module FinalCutServer
   class << self
-    attr_accessor :debug, :fcs_version
+    attr_accessor :debug
   end
-  
-  self.fcs_version = "1.5"
   
   self.debug = false
 
