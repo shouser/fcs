@@ -9,5 +9,5 @@ Feature: asset is created
 		And I set the client class parameter "ssh_username" to "shouser"
 		And I set the client class parameter "ssh_private_key_file" to "~/.ssh/id_rsa"
 		And I set the client class parameter "ssh_host" to "shaithus.chickenkiller.com"
-		When I create a new asset with file name "test.mov" and the device address is "/dev/6"
+		When I create a new asset with file name "test.m4v" and the device address is "/dev/6"
 		Then final cut server should generate an asset address
