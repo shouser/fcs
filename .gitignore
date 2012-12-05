@@ -48,3 +48,5 @@ test.rb
 
 # For rubinius:
 #*.rbc
+
+/Gemfile.lock
