@@ -4,14 +4,14 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{fcs}
-  s.version = "0.1.12"
+  s.name = "fcs"
+  s.version = "0.1.13"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tilting @, LLC"]
-  s.date = %q{2011-07-20}
-  s.description = %q{}
-  s.email = %q{steve@tilting.at}
+  s.date = "2012-12-05"
+  s.description = ""
+  s.email = "steve@tilting.at"
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.rdoc"
@@ -19,7 +19,6 @@ Gem::Specification.new do |s|
   s.files = [
     ".document",
     "Gemfile",
-    "Gemfile.lock",
     "LICENSE.txt",
     "README.rdoc",
     "Rakefile",
@@ -29,7 +28,7 @@ Gem::Specification.new do |s|
     "features/fcs.feature",
     "features/step_definitions/fcs_steps.rb",
     "features/support/env.rb",
-    "features/support/test.mov",
+    "features/support/test.m4v",
     "lib/ext/string.rb",
     "lib/fcs.rb",
     "lib/fcs/asset.rb",
@@ -48,11 +47,11 @@ Gem::Specification.new do |s|
     "spec/fcs_spec.rb",
     "spec/spec_helper.rb"
   ]
-  s.homepage = %q{http://github.com/TiltingAt/fcs}
+  s.homepage = "http://github.com/TiltingAt/fcs"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.6.2}
-  s.summary = %q{Final Cut Server offers a command line interface to much of it's functionality.   This gem offers a more ruby'ish interface to that functionality.}
+  s.rubygems_version = "1.8.24"
+  s.summary = "Final Cut Server offers a command line interface to much of it's functionality.   This gem offers a more ruby'ish interface to that functionality."
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
@@ -65,13 +64,19 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<json_pure>, [">= 0"])
       s.add_runtime_dependency(%q<rubytree>, [">= 0"])
       s.add_runtime_dependency(%q<POpen4>, [">= 0"])
-      s.add_runtime_dependency(%q<rdoc>, [">= 0"])
-      s.add_development_dependency(%q<rspec>, ["~> 2.3.0"])
-      s.add_development_dependency(%q<cucumber>, [">= 0"])
+      s.add_runtime_dependency(%q<libxml-ruby>, [">= 0"])
       s.add_development_dependency(%q<shoulda>, [">= 0"])
-      s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
-      s.add_development_dependency(%q<jeweler>, ["~> 1.6.2"])
+      s.add_development_dependency(%q<bundler>, [">= 0"])
+      s.add_development_dependency(%q<cucumber>, [">= 0"])
+      s.add_development_dependency(%q<jeweler>, [">= 0"])
+      s.add_development_dependency(%q<rspec>, [">= 0"])
       s.add_development_dependency(%q<rcov>, [">= 0"])
+      s.add_development_dependency(%q<rdoc>, [">= 0"])
+      s.add_development_dependency(%q<ruby-debug>, [">= 0"])
+      s.add_development_dependency(%q<ruby-debug19>, [">= 0"])
+      s.add_development_dependency(%q<simplecov>, [">= 0"])
+      s.add_development_dependency(%q<sourcify>, [">= 0"])
+      s.add_development_dependency(%q<yard>, [">= 0"])
     else
       s.add_dependency(%q<net-ssh>, [">= 0"])
       s.add_dependency(%q<net-scp>, [">= 0"])
@@ -80,13 +85,19 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<json_pure>, [">= 0"])
       s.add_dependency(%q<rubytree>, [">= 0"])
       s.add_dependency(%q<POpen4>, [">= 0"])
-      s.add_dependency(%q<rdoc>, [">= 0"])
-      s.add_dependency(%q<rspec>, ["~> 2.3.0"])
-      s.add_dependency(%q<cucumber>, [">= 0"])
+      s.add_dependency(%q<libxml-ruby>, [">= 0"])
       s.add_dependency(%q<shoulda>, [">= 0"])
-      s.add_dependency(%q<bundler>, ["~> 1.0.0"])
-      s.add_dependency(%q<jeweler>, ["~> 1.6.2"])
+      s.add_dependency(%q<bundler>, [">= 0"])
+      s.add_dependency(%q<cucumber>, [">= 0"])
+      s.add_dependency(%q<jeweler>, [">= 0"])
+      s.add_dependency(%q<rspec>, [">= 0"])
       s.add_dependency(%q<rcov>, [">= 0"])
+      s.add_dependency(%q<rdoc>, [">= 0"])
+      s.add_dependency(%q<ruby-debug>, [">= 0"])
+      s.add_dependency(%q<ruby-debug19>, [">= 0"])
+      s.add_dependency(%q<simplecov>, [">= 0"])
+      s.add_dependency(%q<sourcify>, [">= 0"])
+      s.add_dependency(%q<yard>, [">= 0"])
     end
   else
     s.add_dependency(%q<net-ssh>, [">= 0"])
@@ -96,13 +107,19 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<json_pure>, [">= 0"])
     s.add_dependency(%q<rubytree>, [">= 0"])
     s.add_dependency(%q<POpen4>, [">= 0"])
-    s.add_dependency(%q<rdoc>, [">= 0"])
-    s.add_dependency(%q<rspec>, ["~> 2.3.0"])
-    s.add_dependency(%q<cucumber>, [">= 0"])
+    s.add_dependency(%q<libxml-ruby>, [">= 0"])
     s.add_dependency(%q<shoulda>, [">= 0"])
-    s.add_dependency(%q<bundler>, ["~> 1.0.0"])
-    s.add_dependency(%q<jeweler>, ["~> 1.6.2"])
+    s.add_dependency(%q<bundler>, [">= 0"])
+    s.add_dependency(%q<cucumber>, [">= 0"])
+    s.add_dependency(%q<jeweler>, [">= 0"])
+    s.add_dependency(%q<rspec>, [">= 0"])
     s.add_dependency(%q<rcov>, [">= 0"])
+    s.add_dependency(%q<rdoc>, [">= 0"])
+    s.add_dependency(%q<ruby-debug>, [">= 0"])
+    s.add_dependency(%q<ruby-debug19>, [">= 0"])
+    s.add_dependency(%q<simplecov>, [">= 0"])
+    s.add_dependency(%q<sourcify>, [">= 0"])
+    s.add_dependency(%q<yard>, [">= 0"])
   end
 end
 
